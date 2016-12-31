@@ -2,10 +2,10 @@ function checkOnclickEvent(param) {
   console.log(param);
 }
 var inputElem = document.getElementById('js-inputValue'),
-    imageElem = document.getElementById('js-image'),
-    add = document.getElementById('addElem'),
-    list = document.getElementById('Lista'),
-    next = document.getElementsByTagName('li').length;
+var   imageElem = document.getElementById('js-image'),
+var   add = document.getElementById('addElem'),
+var   list = document.getElementById('Lista'),
+var   next = document.getElementsByTagName('li').length;
 
 imageElem.addEventListener('click', function(e) {
   checkOnclickEvent('image został kliknięty')
