@@ -18,11 +18,11 @@ pickRock.addEventListener('click', function() { playerPick('rock') });
 pickPaper.addEventListener('click', function() { playerPick('paper') });
 pickScissors.addEventListener('click', function() { playerPick('scissors') });
 
-    var gameState = 'notStarted',  //started // ended
+    var gameState = 'notStarted';  //started // ended
     player = {
         name: '',
         score: 0
-    },
+    };
     computer = {
         score: 0
     };
@@ -103,19 +103,27 @@ function checkRoundWinner(playerPick, computerPick) {
         playerResultElem.innerHTML = "Wygrana!";
         player.score++;
         playerPointsElem.innerHTML = player.score;
+        if (player.score == endPoints){
+          endGamePlayer();
+        }
     } else if (winnerIs == 'computer') {
         computerResultElem.innerHTML = "Wygrana!";
         computer.score++;
         computerPointsElem.innerHTML = computer.score;
+        if (computer.score == endPoints) {
+          endGameComputer();
+        }
     }
-    if (player.score == endPoints) {
+}
+
+function endGamePlayer() {
     alert("Koniec. Wygrałeś talon ;)");
     gameState = 'ended';
     setGameElements();
-   }
-   else if (computer.score == endPoints) {
+}
+
+function endGameComputer() {
     alert("Koniec. Przegrałeś");
     gameState = 'ended';
     setGameElements();
-   }
 }
