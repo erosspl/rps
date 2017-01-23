@@ -18,12 +18,12 @@ pickRock.addEventListener('click', function() { playerPick('rock') });
 pickPaper.addEventListener('click', function() { playerPick('paper') });
 pickScissors.addEventListener('click', function() { playerPick('scissors') });
 
-    var gameState = 'notStarted',  //started // ended
-    player = {
+    var gameState = 'notStarted';  //started // ended
+    var player = {
         name: '',
         score: 0
-    },
-    computer = {
+    };
+    var computer = {
         score: 0
     };
     
@@ -47,7 +47,15 @@ function setGameElements() {
     
 function newGame() {
   player.name = prompt('Graczu, wpisz swoje imię', 'imię gracza');
+  if (player.name === null) {
+    return;
+  }
   endPoints = prompt('Do ilu chcesz grać?');
+  if (endPoints === null || isNaN(endPoints)) {
+    return;
+  }
+
+
   if (player.name) {
     player.score = computer.score = 0;
     gameState = 'started';
@@ -79,7 +87,7 @@ function getComputerPick() {
 function checkRoundWinner(playerPick, computerPick) {
   playerResultElem.innerHTML = computerResultElem.innerHTML = '';
 
-  var winnerIs = 'player';
+    var winnerIs = 'player';
 
     if (playerPick == computerPick) {
         winnerIs = 'noone'; // remis
@@ -94,18 +102,25 @@ function checkRoundWinner(playerPick, computerPick) {
     if (winnerIs == 'player') {
         playerResultElem.innerHTML = "Wygrana!";
         player.score++;
+        playerPointsElem.innerHTML = player.score;
+
     } else if (winnerIs == 'computer') {
         computerResultElem.innerHTML = "Wygrana!";
         computer.score++;
+        computerPointsElem.innerHTML = computer.score;
     }
-    if (player.score == endPoints || computer.score == endPoints) {
-    alert("Koniec.");
-    gameState = 'ended';
-    setGameElements();
-  }
+    if (didGameEnd()) {
+     (endPoints == player.score) ? endGame('Wygrałeś') : endGame('Przegrałeś'); 
+    }
+    
 }
 
- 
-   
+function didGameEnd() {
+    return endPoints == player.score || endPoints == computer.score;
+}
 
-
+function endGame(text) {
+    alert("Koniec." + text);
+    gameState = 'ended';
+    setGameElements();
+}
